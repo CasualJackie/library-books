@@ -3,10 +3,12 @@ import './App.scss';
 import { loadBooks } from './api/library';
 import { Input } from './components/Input';
 import { BooksList } from './components/BooksList';
+import { InputError } from './components/InputError';
 
 export const App = () => {
   const [books, setBooks] = useState([]);
   const [query, setSearch] = useState('');
+  const [errorStatus, setErrorStatus] = useState(false);
 
   const handleQuery = (event) => {
     setSearch(event.target.value);
@@ -21,7 +23,12 @@ export const App = () => {
   const loadData = async() => {
     const response = await loadBooks(query);
 
-    setBooks(response.items);
+    if (response.totalItems === 0) {
+      setErrorStatus(true);
+    } else {
+      setErrorStatus(false);
+      setBooks(response.items);
+    }
   };
 
   return (
@@ -32,7 +39,9 @@ export const App = () => {
         handleSubmit={handleSubmit}
       />
 
-      <BooksList books={books} />
+      {errorStatus
+        ? <InputError />
+        : <BooksList books={books} />}
     </div>
   );
 };

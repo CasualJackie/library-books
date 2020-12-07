@@ -10,7 +10,10 @@ export const BooksList = ({ books }) => (
           alt={volumeInfo.title}
         />
         <div>{volumeInfo.title}</div>
-        <div>{volumeInfo.authors[0]}</div>
+
+        {volumeInfo.authors && volumeInfo.authors.map(author => (
+          <div>{author}</div>
+        ))}
       </div>
     ))}
   </div>
