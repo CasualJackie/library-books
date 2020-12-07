@@ -1,34 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { BooksListShape } from './Shape';
 
 export const BooksList = ({ books }) => (
-  <div>
+  <div className="books">
     {books.map(({ volumeInfo, id }) => (
-      <div key={id}>
+      <div className="book" key={id}>
         <img
-          src={volumeInfo.imageLinks.smallThumbnail}
+          className="book__img"
+          src={volumeInfo.imageLinks === undefined
+            ? 'https://logodix.com/logo/1338312.png'
+            : volumeInfo.imageLinks.smallThumbnail}
           alt={volumeInfo.title}
         />
-        <div>{volumeInfo.title}</div>
 
-        {volumeInfo.authors && volumeInfo.authors.map(author => (
-          <div>{author}</div>
-        ))}
+        <div>
+          <h4>
+            {volumeInfo.title}
+          </h4>
+        </div>
+
+        <div>
+          {volumeInfo.authors && volumeInfo.authors.map(author => (
+            <div>{author}</div>
+          ))}
+        </div>
       </div>
     ))}
   </div>
 );
 
 BooksList.propTypes = {
-  books: PropTypes.arrayOf({
-    id: PropTypes.string.isRequired,
-    volumeInfo: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      // eslint-disable-next-line react/forbid-prop-types
-      authors: PropTypes.array.isRequired,
-      imageLinks: PropTypes.shape({
-        smallThumbnail: PropTypes.string.isRequired,
-      }).isRequired,
-    }).isRequired,
-  }).isRequired,
+  books: PropTypes.arrayOf(BooksListShape).isRequired,
 }.isRequired;

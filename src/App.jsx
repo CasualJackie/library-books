@@ -1,47 +1,90 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import debounce from 'lodash.debounce';
 import './App.scss';
 import { loadBooks } from './api/library';
 import { Input } from './components/Input';
 import { BooksList } from './components/BooksList';
-import { InputError } from './components/InputError';
 
 export const App = () => {
   const [books, setBooks] = useState([]);
-  const [query, setSearch] = useState('');
-  const [errorStatus, setErrorStatus] = useState(false);
+  const [query, setQuery] = useState('');
+  const [statusError, setStatusError] = useState(false);
+  const [autocomplete, setAutocomplete] = useState([]);
+  const [autocompleteError, setAutocompleteError] = useState(false);
+  const [autocompleteStatus, setAutocompleteStatus] = useState(false);
 
   const handleQuery = (event) => {
-    setSearch(event.target.value);
+    const { value } = event.target;
+
+    setQuery(value);
+
+    if (value === '') {
+      setAutocompleteStatus(false);
+
+      return;
+    }
+
+    setAutocompleteStatus(true);
+    queryAutocomplete(value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    loadData();
+    if (query === '') {
+      setAutocompleteError(true);
+      setStatusError(true);
+
+      return;
+    }
+
+    loadData(query);
   };
 
-  const loadData = async() => {
-    const response = await loadBooks(query);
+  const loadAutocomplete = async(part) => {
+    const response = await loadBooks(part);
+    const result = response.items;
+
+    if (result === undefined) {
+      setAutocompleteError(true);
+
+      return;
+    }
+
+    setAutocompleteError(false);
+    setAutocomplete(response.items);
+  };
+
+  const queryAutocomplete = useCallback(debounce(loadAutocomplete, 500), []);
+
+  const loadData = async(title) => {
+    const response = await loadBooks(title);
 
     if (response.totalItems === 0) {
-      setErrorStatus(true);
+      setStatusError(true);
     } else {
-      setErrorStatus(false);
+      setStatusError(false);
       setBooks(response.items);
     }
   };
 
   return (
-    <div>
+    <div className="container">
+      <div className="container__left">
+        {statusError
+          ? <div>Invalid entry, no books found!</div>
+          : <BooksList books={books} />}
+      </div>
+
       <Input
         query={query}
         handleQuery={handleQuery}
         handleSubmit={handleSubmit}
+        autocomplete={autocomplete}
+        autocompleteError={autocompleteError}
+        autocompleteStatus={autocompleteStatus}
+        loadData={loadData}
       />
-
-      {errorStatus
-        ? <InputError />
-        : <BooksList books={books} />}
     </div>
   );
 };
