@@ -82,7 +82,7 @@ export const App = () => {
           ? (
             <img
               className="container__img"
-              src="/images/not_found.png"
+              src="images/not_found.png"
               alt="not found"
             />
           )

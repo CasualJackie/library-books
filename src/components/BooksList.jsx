@@ -9,7 +9,7 @@ export const BooksList = memo(({ books }) => (
         <img
           className="book__img"
           src={volumeInfo.imageLinks === undefined
-            ? '/images/logo_book.png'
+            ? 'images/logo_book.png'
             : volumeInfo.imageLinks.smallThumbnail}
           alt={volumeInfo.title}
         />
