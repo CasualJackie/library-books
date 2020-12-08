@@ -4,6 +4,7 @@ import './App.scss';
 import { loadBooks } from './api/library';
 import { Input } from './components/Input';
 import { BooksList } from './components/BooksList';
+import NotFound from './images/not_found.png';
 
 export const App = () => {
   const [books, setBooks] = useState([]);
@@ -82,7 +83,7 @@ export const App = () => {
           ? (
             <img
               className="container__img"
-              src="images/not_found.png"
+              src={NotFound}
               alt="not found"
             />
           )
