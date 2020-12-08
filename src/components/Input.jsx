@@ -12,17 +12,18 @@ export const Input = ({
   loadData,
 }) => (
   <div className="container__right">
-    <form>
+    <form className="form">
       <input
-        className="ui selection dropdown"
+        className="form__item ui selection dropdown"
         onChange={handleQuery}
         value={query}
       />
 
       <button
-        className="ui primary button"
+        className="form__item ui primary button"
         onClick={handleSubmit}
         type="submit"
+        disabled={autocompleteError}
       >
         search
       </button>
@@ -31,7 +32,7 @@ export const Input = ({
     {
       autocompleteStatus
       && (autocompleteError
-        ? <div>No matches</div>
+        ? <div className="error">No matches</div>
         : <Autocomplete loadData={loadData} autocomplete={autocomplete} />)
     }
   </div>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BooksListShape } from './Shape';
 
 export const Autocomplete = ({ autocomplete, loadData }) => (
-  <div className="ui selection dropdown">
+  <div className="form__item ui selection dropdown">
     {autocomplete.map(({ volumeInfo, id }) => (
       <button
         key={id}

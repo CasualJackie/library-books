@@ -6,7 +6,6 @@
 
   &__left {
     padding: 20px;
-    background-color: #F8F9FA;
   }
 
   &__right {
@@ -31,14 +30,60 @@
 }
 
 .autocomplete {
-  display: flex;
-  flex-direction: column;
+  &__logo {
+    height: 15px;;
+    width: 15px;
+  }
 
   &__item {
+    display: block;
     margin-top: 10px;
+    text-align: left;
     background-color: white;
     border: none;
     outline: none;
     cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  &__item {
+    width: 360px;
+  }
+}
+
+.error {
+  color: #E25544
+}
+
+@media (max-width:720px) {
+  .container {
+    display: block;
+    position: relative;
+    padding-top: 100px;
+
+    &__left {
+      padding: 20px;
+    }
+  
+    &__right {
+      position: absolute;
+      top: 10px;
+      width: 100%;
+      padding: 20px;
+    }
+  }
+
+  .form {
+    &__item {
+      width: 100%;
+    }
   }
 }

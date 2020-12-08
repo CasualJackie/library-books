@@ -41,6 +41,12 @@ export const App = () => {
     loadData(query);
   };
 
+  const clickAutocomplete = (title) => {
+    loadData(title);
+    setQuery(title);
+    setAutocompleteStatus(false);
+  };
+
   const loadAutocomplete = async(part) => {
     const response = await loadBooks(part);
     const result = response.items;
@@ -83,7 +89,7 @@ export const App = () => {
         autocomplete={autocomplete}
         autocompleteError={autocompleteError}
         autocompleteStatus={autocompleteStatus}
-        loadData={loadData}
+        loadData={clickAutocomplete}
       />
     </div>
   );
