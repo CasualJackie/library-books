@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
 export const BooksListShape = {
-  id: PropTypes.string.isRequired,
   volumeInfo: PropTypes.shape({
     title: PropTypes.string.isRequired,
     // eslint-disable-next-line react/forbid-prop-types
@@ -19,5 +18,5 @@ export const InputShape = {
   autocomplete: PropTypes.arrayOf(BooksListShape).isRequired,
   autocompleteError: PropTypes.bool.isRequired,
   autocompleteStatus: PropTypes.bool.isRequired,
-  loadData: PropTypes.func.isRequired,
+  clickAutocomplete: PropTypes.func.isRequired,
 }.isRequired;

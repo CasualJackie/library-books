@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { InputShape } from './Shape';
 import { Autocomplete } from './Autocomplete';
 
-export const Input = ({
+export const Input = memo(({
   query,
   handleQuery,
   handleSubmit,
   autocomplete,
   autocompleteError,
   autocompleteStatus,
-  loadData,
+  clickAutocomplete,
 }) => (
   <div className="container__right">
     <form className="form">
@@ -33,9 +33,14 @@ export const Input = ({
       autocompleteStatus
       && (autocompleteError
         ? <div className="error">No matches</div>
-        : <Autocomplete loadData={loadData} autocomplete={autocomplete} />)
+        : (
+          <Autocomplete
+            clickAutocomplete={clickAutocomplete}
+            autocomplete={autocomplete}
+          />
+        ))
     }
   </div>
-);
+));
 
 Input.propTypes = InputShape;

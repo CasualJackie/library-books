@@ -13,7 +13,7 @@ export const App = () => {
   const [autocompleteError, setAutocompleteError] = useState(false);
   const [autocompleteStatus, setAutocompleteStatus] = useState(false);
 
-  const handleQuery = (event) => {
+  const handleQuery = useCallback((event) => {
     const { value } = event.target;
 
     setQuery(value);
@@ -26,9 +26,9 @@ export const App = () => {
 
     setAutocompleteStatus(true);
     queryAutocomplete(value);
-  };
+  }, []);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = useCallback((event) => {
     event.preventDefault();
 
     if (query === '') {
@@ -39,15 +39,16 @@ export const App = () => {
     }
 
     loadData(query);
-  };
+    setAutocompleteStatus(false);
+  }, [query]);
 
-  const clickAutocomplete = (title) => {
+  const clickAutocomplete = useCallback((title) => {
     loadData(title);
     setQuery(title);
     setAutocompleteStatus(false);
-  };
+  }, []);
 
-  const loadAutocomplete = async(part) => {
+  const loadAutocomplete = useCallback(async(part) => {
     const response = await loadBooks(part);
     const result = response.items;
 
@@ -59,11 +60,11 @@ export const App = () => {
 
     setAutocompleteError(false);
     setAutocomplete(response.items);
-  };
+  }, []);
 
   const queryAutocomplete = useCallback(debounce(loadAutocomplete, 500), []);
 
-  const loadData = async(title) => {
+  const loadData = useCallback(async(title) => {
     const response = await loadBooks(title);
 
     if (response.totalItems === 0) {
@@ -72,13 +73,19 @@ export const App = () => {
       setStatusError(false);
       setBooks(response.items);
     }
-  };
+  }, []);
 
   return (
     <div className="container">
       <div className="container__left">
         {statusError
-          ? <div>Invalid entry, no books found!</div>
+          ? (
+            <img
+              className="container__img"
+              src="/images/not_found.png"
+              alt="not found"
+            />
+          )
           : <BooksList books={books} />}
       </div>
 
@@ -89,7 +96,7 @@ export const App = () => {
         autocomplete={autocomplete}
         autocompleteError={autocompleteError}
         autocompleteStatus={autocompleteStatus}
-        loadData={clickAutocomplete}
+        clickAutocomplete={clickAutocomplete}
       />
     </div>
   );
