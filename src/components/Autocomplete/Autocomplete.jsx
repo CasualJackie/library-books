@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import './Autocomplete.scss';
 import PropTypes from 'prop-types';
-import { BooksListShape } from '../../Shapes/BooksListShape';
+import { BooksListShape } from '../../shapes/BooksListShape';
 
 export const Autocomplete = memo(({ autocomplete, clickAutocomplete }) => (
   <div className="form__item ui selection dropdown">

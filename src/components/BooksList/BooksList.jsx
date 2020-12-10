@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import './BooksList.scss';
 import PropTypes from 'prop-types';
-import { BooksListShape } from '../../Shapes/BooksListShape';
+import { BooksListShape } from '../../shapes/BooksListShape';
 
 export const BooksList = memo(({ books }) => (
   <div className="books">
