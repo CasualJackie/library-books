@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from 'react';
-import debounce from 'lodash.debounce';
+import 'semantic-ui-css/semantic.min.css';
 import './App.scss';
-import { loadBooks } from './api/library';
-import { Input } from './components/Input';
-import { BooksList } from './components/BooksList';
-import NotFound from './images/not_found.png';
+import debounce from 'lodash.debounce';
+import { loadBooks } from './api/loadBooks';
+import { SearchBooks } from './components/SearchBooks/SearchBooks';
+import { BooksList } from './components/BooksList/BooksList';
 
 export const App = () => {
   const [books, setBooks] = useState([]);
@@ -82,23 +82,25 @@ export const App = () => {
         {statusError
           ? (
             <img
-              className="container__img"
-              src={NotFound}
+              className="container__image"
+              src="./images/not_found.png"
               alt="not found"
             />
           )
           : <BooksList books={books} />}
       </div>
 
-      <Input
-        query={query}
-        handleQuery={handleQuery}
-        handleSubmit={handleSubmit}
-        autocomplete={autocomplete}
-        autocompleteError={autocompleteError}
-        autocompleteStatus={autocompleteStatus}
-        clickAutocomplete={clickAutocomplete}
-      />
+      <div className="container__right">
+        <SearchBooks
+          query={query}
+          handleQuery={handleQuery}
+          handleSubmit={handleSubmit}
+          autocomplete={autocomplete}
+          autocompleteError={autocompleteError}
+          autocompleteStatus={autocompleteStatus}
+          clickAutocomplete={clickAutocomplete}
+        />
+      </div>
     </div>
   );
 };

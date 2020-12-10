@@ -1,8 +1,9 @@
 import React, { memo } from 'react';
-import { InputShape } from './Shape';
-import { Autocomplete } from './Autocomplete';
+import './SearchBooks.scss';
+import { SearchBooksShape } from '../../Shapes/SearchBooksShape';
+import { Autocomplete } from '../Autocomplete/Autocomplete';
 
-export const Input = memo(({
+export const SearchBooks = memo(({
   query,
   handleQuery,
   handleSubmit,
@@ -11,7 +12,7 @@ export const Input = memo(({
   autocompleteStatus,
   clickAutocomplete,
 }) => (
-  <div className="container__right">
+  <>
     <form className="form">
       <input
         className="form__item ui selection dropdown"
@@ -40,7 +41,7 @@ export const Input = memo(({
           />
         ))
     }
-  </div>
+  </>
 ));
 
-Input.propTypes = InputShape;
+SearchBooks.propTypes = SearchBooksShape;

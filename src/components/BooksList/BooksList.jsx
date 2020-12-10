@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
+import './BooksList.scss';
 import PropTypes from 'prop-types';
-import { BooksListShape } from './Shape';
-import LogoBook from '../images/logo_book.png';
+import { BooksListShape } from '../../Shapes/BooksListShape';
 
 export const BooksList = memo(({ books }) => (
   <div className="books">
@@ -10,7 +10,7 @@ export const BooksList = memo(({ books }) => (
         <img
           className="book__img"
           src={volumeInfo.imageLinks === undefined
-            ? LogoBook
+            ? './images/logo_book.png'
             : volumeInfo.imageLinks.smallThumbnail}
           alt={volumeInfo.title}
         />

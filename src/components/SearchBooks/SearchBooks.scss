@@ -1,0 +1,20 @@
+.form {
+  display: flex;
+  flex-direction: column;
+
+  &__item {
+    width: 360px;
+  }
+}
+
+.error {
+  color: #E25544
+}
+
+@media (max-width:720px) {
+  .form {
+    &__item {
+      width: 100%;
+    }
+  }
+}

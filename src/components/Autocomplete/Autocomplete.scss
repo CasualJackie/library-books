@@ -1,0 +1,20 @@
+.autocomplete {
+  &__logo {
+    height: 15px;;
+    width: 15px;
+  }
+
+  &__item {
+    display: block;
+    margin-top: 10px;
+    text-align: left;
+    background-color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

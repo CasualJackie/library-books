@@ -1,17 +1,7 @@
 import PropTypes from 'prop-types';
+import { BooksListShape } from './BooksListShape';
 
-export const BooksListShape = {
-  volumeInfo: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    // eslint-disable-next-line react/forbid-prop-types
-    authors: PropTypes.array.isRequired,
-    imageLinks: PropTypes.shape({
-      smallThumbnail: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
-}.isRequired;
-
-export const InputShape = {
+export const SearchBooksShape = {
   query: PropTypes.string.isRequired,
   handleQuery: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
