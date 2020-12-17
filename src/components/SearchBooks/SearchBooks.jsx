@@ -7,7 +7,7 @@ import { Autocomplete } from '../Autocomplete/Autocomplete';
 
 export const SearchBooks = memo(({ getBooks, changeErrorStatus }) => {
   const [query, setQuery] = useState('');
-  const [autocomplete, setAutocomplete] = useState([]);
+  const [autocompleteSuggestions, setAutocompleteSuggestions] = useState([]);
   const [autocompleteError, setAutocompleteError] = useState(false);
   const [autocompleteStatus, setAutocompleteStatus] = useState(false);
 
@@ -51,7 +51,7 @@ export const SearchBooks = memo(({ getBooks, changeErrorStatus }) => {
     }
 
     setAutocompleteError(false);
-    setAutocomplete(response.items);
+    setAutocompleteSuggestions(response.items);
   }, []);
 
   const queryAutocomplete = useCallback(debounce(loadAutocomplete, 500), []);
@@ -87,7 +87,7 @@ export const SearchBooks = memo(({ getBooks, changeErrorStatus }) => {
           ? <div className="error">No matches</div>
           : (
             <Autocomplete
-              autocomplete={autocomplete}
+              autocomplete={autocompleteSuggestions}
               clickAutocomplete={clickAutocomplete}
             />
           ))
