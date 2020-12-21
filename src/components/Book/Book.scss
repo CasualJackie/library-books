@@ -1,0 +1,8 @@
+.book {
+  &__img {
+    width: 130px;
+    height: 180px;
+
+    object-fit: cover;
+  }
+}
